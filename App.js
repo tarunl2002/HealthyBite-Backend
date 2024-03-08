@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 // Replace 'your_bearer_token' with your actual bearer token
-const bearerToken = 'U_kIlqoptuDs_mYqvPxc1vVuDgmF_nxhcg9yR8-dFt4PHYyS';
+const bearerToken = "U_kIlqoptuDs_mYqvPxc1vVuDgmF_nxhcg9yR8-dFt4PHYyS";
 
 // Define a function to fetch recipe data
 const fetchRecipes = async () => {
