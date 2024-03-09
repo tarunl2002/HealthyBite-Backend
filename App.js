@@ -83,7 +83,7 @@ app.get('/data', async (req, res) => {
     //   console.log('Received image URL:', imageUrl);
   
       // Make a POST request using Axios
-      const response = await axios.post('https://61fc-103-25-231-104.ngrok-free.app/chat', {
+      const response = await axios.post('https://blood-report-analysis.onrender.com/chat', {
         input: "https://i.ibb.co/T4hpKfW/test1.png",
       });
   
