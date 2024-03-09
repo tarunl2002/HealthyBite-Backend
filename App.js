@@ -91,7 +91,25 @@ app.get('/data', async (req, res) => {
       console.log('Response from external API:', response.data);
   
       // Send a response to the client
-      res.json(response.data);
+    //   res.json(response.data);
+
+    if (response.data.CRP < 1) {
+        const nutritionResponse = await axios.post('https://apis-new.foodoscope.com/recipe-search/recipesByNutrition?page=1&pageSize=10', {
+        "energyMin": 0,
+        "energyMax": 0,
+        "carbohydratesMin": 0,
+        "carbohydratesMax": 3,
+        "fatMin": 0,
+        "fatMax": 0,
+        "proteinMin": 0,
+        "proteinMax": 0
+      });
+      res.json(nutritionResponse.data.payload.data);
+      } else {
+        // Send the original response if the condition is not met
+        res.json(response.data);
+      }
+
     } catch (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
