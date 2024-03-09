@@ -115,6 +115,14 @@ app.get('/data', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  app.post('/recipeByIngredients', async (req, res) => {
+    const response = await axios.post('https://apis-new.foodoscope.com/recipe-search/recipesByIngredient?page=0&pageSize=10', {
+        "ingredientUsed": "cornstarch",
+        "ingredientNotUsed": "water"
+      });
+      res.json(response.data);
+  })
   
   
 
