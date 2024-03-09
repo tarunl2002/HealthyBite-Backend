@@ -5,6 +5,21 @@ const port = 3000;
 
 // Replace 'your_bearer_token' with your actual bearer token
 const bearerToken = "U_kIlqoptuDs_mYqvPxc1vVuDgmF_nxhcg9yR8-dFt4PHYyS";
+var querytext;
+var size;
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${bearerToken}`;
+
+
+
+app.post('/search-api', (req, res) => {
+    const { searchText, pageSize } = req.body;
+    querytext = searchText;
+    size = pageSize;
+    console.log(querytext);
+    res.json({ searchText, pageSize });
+});
+
 
 // Define a function to fetch recipe data
 const fetchRecipes = async () => {
@@ -36,6 +51,54 @@ app.get('/recipes', async (req, res) => {
     });
   }
 });
+
+app.get('/data', async (req, res) => {
+    try {
+      // Specify the input parameter in the API request
+      const apiUrl = 'https://098b-103-25-231-104.ngrok-free.app';
+      const inputParam = 'https://i.ibb.co/T4hpKfW/test1.png';
+  
+      // Make a GET request to the API with the input parameter
+      const response = await axios.get(apiUrl, {
+        params: {
+          input: inputParam,
+        },
+      });
+  
+      // Assuming the API response contains a JSON object
+      const data = response.data;
+  
+      // Display the values in the response
+      res.json(data);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  app.post('/report', async (req, res) => {
+    try {
+  
+      // Log the image URL
+    //   console.log('Received image URL:', imageUrl);
+  
+      // Make a POST request using Axios
+      const response = await axios.post('https://61fc-103-25-231-104.ngrok-free.app/chat', {
+        input: "https://i.ibb.co/T4hpKfW/test1.png",
+      });
+  
+      // Log the response from the external API
+      console.log('Response from external API:', response.data);
+  
+      // Send a response to the client
+      res.json(response.data);
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  
 
 // Start the Express server
 app.listen(port, () => {
